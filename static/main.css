@@ -35,12 +35,6 @@ body {
     width: 40%;
 }
 
-#resultsDiv {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
 #resultsContainer {
     visibility: hidden;
     display: flex;
@@ -49,8 +43,34 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     padding: 30px;
-    width: 40%;
     margin-bottom: 20px;
+    width: 40%;
+}
+
+@media only screen and (max-width: 1035px) {
+    #inputContainer {
+        width: 60%;
+    }
+
+    #resultsContainer {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 615px) {
+    #inputContainer {
+        width: 80%;
+    }
+
+    #resultsContainer {
+        width: 80%;
+    }
+}
+
+#resultsDiv {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
 }
 
 .statistic {
