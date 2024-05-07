@@ -38,12 +38,7 @@
                     }
                     document.getElementById("searchButton").textContent = "Search";
                     var playerInfo = response.data;
-                    document.getElementById("resultsContainer").style.backgroundColor = "whitesmoke";
-                    document.getElementById("resultsContainer").style.borderRadius = "10px";
-                    document.getElementById("resultsContainer").style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
-                    document.getElementById("resultsContainer").style.padding = "30px";
-                    document.getElementById("resultsContainer").style.width = "40%";
-
+                    document.getElementById("resultsContainer").style.visibility = "visible";
                     document.getElementById("tagField").innerHTML = "Player Tag: " + playerInfo.tag;
                     document.getElementById("nameField").innerHTML = "Player Name: " + playerInfo.name;
                     document.getElementById("trophiesField").innerHTML = "Current Trophies: " + playerInfo.trophies;

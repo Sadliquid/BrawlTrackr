@@ -27,8 +27,6 @@ def search():
 
     response = requests.get(url, headers=headers)
 
-    print(response.json())
-
     if response.status_code == 200:
         player_info = response.json()
         return jsonify(player_info)
