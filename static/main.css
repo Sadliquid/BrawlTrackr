@@ -50,10 +50,16 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     padding: 30px;
     width: 40%;
+    margin-bottom: 20px;
 }
 
 .statistic {
     margin-bottom: 10px;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: rgb(224, 224, 224);
+    display: flex;
+    justify-content: space-between;
 }
 
 #mainHeader {
@@ -79,4 +85,10 @@ body {
 
 #searchButtonDiv {
     cursor: pointer;
+}
+
+#resultsHeader {
+    text-align: center;
+    font-family: "Nougat";
+    margin-top: -20px;
 }

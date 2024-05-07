@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script>
         function search(){
+            document.getElementById("clubField").style.color = "black";
             document.getElementById("tagField").innerHTML = "";
             document.getElementById("nameField").innerHTML = "";
             document.getElementById("trophiesField").innerHTML = "";
@@ -39,15 +40,18 @@
                     document.getElementById("searchButton").textContent = "Search";
                     var playerInfo = response.data;
                     document.getElementById("resultsContainer").style.visibility = "visible";
-                    document.getElementById("tagField").innerHTML = "Player Tag: " + playerInfo.tag;
-                    document.getElementById("nameField").innerHTML = "Player Name: " + playerInfo.name;
-                    document.getElementById("trophiesField").innerHTML = "Current Trophies: " + playerInfo.trophies;
-                    document.getElementById("highestTrophiesField").innerHTML = "Highest Trophies: " + playerInfo.highestTrophies;
-                    document.getElementById("3vs3VictoriesField").innerHTML = "3v3 Victories: " + playerInfo['3vs3Victories'];
-                    document.getElementById("soloVictoriesField").innerHTML = "Solo Victories: " + playerInfo.soloVictories;
-                    document.getElementById("duoVictoriesField").innerHTML = "Duo Victories: " + playerInfo.duoVictories;
-                    document.getElementById("expLevelField").innerHTML = "Previous EXP Level: " + playerInfo.expLevel;
-                    document.getElementById("clubField").innerHTML = "Club: " + playerInfo.club ? "Club: " + playerInfo.club.name : "Player is not in a club";
+                    document.getElementById("tagField").innerHTML = playerInfo.tag;
+                    document.getElementById("nameField").innerHTML = playerInfo.name;
+                    document.getElementById("trophiesField").innerHTML = playerInfo.trophies;
+                    document.getElementById("highestTrophiesField").innerHTML = playerInfo.highestTrophies;
+                    document.getElementById("3vs3VictoriesField").innerHTML = playerInfo['3vs3Victories'];
+                    document.getElementById("soloVictoriesField").innerHTML = playerInfo.soloVictories;
+                    document.getElementById("duoVictoriesField").innerHTML = playerInfo.duoVictories;
+                    document.getElementById("expLevelField").innerHTML = playerInfo.expLevel;
+                    document.getElementById("clubField").innerHTML = playerInfo.club && playerInfo.club.name ? playerInfo.club.name : "Player is not in a club";
+                    if (document.getElementById("clubField").innerHTML == "Player is not in a club"){
+                        document.getElementById("clubField").style.color = "red";
+                    }
                 })
                 .catch(function (error) {
                     console.error('Error searching player tag:', error);
@@ -70,15 +74,43 @@
     </div>
     <div id="resultsDiv">
         <div id="resultsContainer">
-            <div class="statistic" id="tagField"></div>
-            <div class="statistic" id="nameField"></div>
-            <div class="statistic" id="trophiesField"></div>
-            <div class="statistic" id="highestTrophiesField"></div>
-            <div class="statistic" id="3vs3VictoriesField"></div>
-            <div class="statistic" id="soloVictoriesField"></div>
-            <div class="statistic" id="duoVictoriesField"></div>
-            <div class="statistic" id="expLevelField"></div>
-            <div class="statistic" id="clubField"></div>
+            <h2 id="resultsHeader">Player Stats</h2>
+            <div class="statistic">
+                <div id="statsDescription">Player Tag: </div>
+                <div id="tagField"></div>
+            </div>
+            <div class="statistic">
+                <div id="statsDescription">Player Name: </div>
+                <div id="nameField"></div>
+            </div>
+            <div class="statistic">
+                <div id="statsDescription">Current Trophies: </div>
+                <div id="trophiesField"></div>
+            </div>
+            <div class="statistic">
+                <div id="statsDescription">Highest Trophies: </div>
+                <div id="highestTrophiesField"></div>
+            </div>
+            <div class="statistic">
+                <div id="statsDescription">3v3 Victories: </div>
+                <div id="3vs3VictoriesField"></div>
+            </div>
+            <div class="statistic">
+                <div id="statsDescription">Duo Victories: </div>
+                <div id="duoVictoriesField"></div>
+            </div>
+            <div class="statistic">
+                <div id="statsDescription">Solo Victories: </div>
+                <div id="soloVictoriesField"></div>
+            </div>
+            <div class="statistic">
+                <div id="statsDescription">Previous EXP Level: </div>
+                <div id="expLevelField"></div>
+            </div>
+            <div class="statistic">
+                <div id="statsDescription">Club: </div>
+                <div id="clubField"></div>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
