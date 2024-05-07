@@ -9,26 +9,46 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script>
         function search(){
+            document.getElementById("tagField").innerHTML = "";
+            document.getElementById("nameField").innerHTML = "";
+            document.getElementById("trophiesField").innerHTML = "";
+            document.getElementById("highestTrophiesField").innerHTML = "";
+            document.getElementById("3vs3VictoriesField").innerHTML = "";
+            document.getElementById("soloVictoriesField").innerHTML = "";
+            document.getElementById("duoVictoriesField").innerHTML = "";
+            document.getElementById("expLevelField").innerHTML = "";
+            document.getElementById("clubField").innerHTML = "";
+
             inputPlayerTag = document.getElementById("playerTag").value;
-            axios.post('/searchPlayerTag', {
-                playerTag: inputPlayerTag
-            })
-            .then(function (response) {
-                var playerInfo = response.data;
-                console.log(playerInfo);
-                document.getElementById("tagField").innerHTML = "Player Tag: " + playerInfo.tag;
-                document.getElementById("nameField").innerHTML = "Player Name: " + playerInfo.name;
-                document.getElementById("trophiesField").innerHTML = "Current Trophies: " + playerInfo.trophies;
-                document.getElementById("highestTrophiesField").innerHTML = "Highest Trophies: " + playerInfo.highestTrophies;
-                document.getElementById("3vs3VictoriesField").innerHTML = "3v3 Victories: " + playerInfo['3vs3Victories'];
-                document.getElementById("soloVictoriesField").innerHTML = "Solo Victories: " + playerInfo.soloVictories;
-                document.getElementById("duoVictoriesField").innerHTML = "Duo Victories: " + playerInfo.duoVictories;
-                document.getElementById("expLevelField").innerHTML = "Previous EXP Level: " + playerInfo.expLevel;
-                document.getElementById("clubField").innerHTML = "Club: " + playerInfo.club ? "Club: " + playerInfo.club.name : "Player is not in a club";
-            })
-            .catch(function (error) {
-                console.error('Error searching player tag:', error);
-            });
+            document.getElementById("loadingMessage").innerHTML = "Conecting to server...";
+            setTimeout(function(){
+                document.getElementById("loadingMessage").innerHTML = "Fetching your player info...";
+            }, 1500);
+            setTimeout(function(){
+                axios.post('/searchPlayerTag', {
+                    playerTag: inputPlayerTag
+                })
+                .then(function (response) {
+                    if (response.data == "Player not found"){
+                        document.getElementById("loadingMessage").innerHTML = "Player not found!";
+                        return;
+                    }
+                    var playerInfo = response.data;
+                    document.getElementById("loadingMessage").innerHTML = "";
+                    document.getElementById("tagField").innerHTML = "Player Tag: " + playerInfo.tag;
+                    document.getElementById("nameField").innerHTML = "Player Name: " + playerInfo.name;
+                    document.getElementById("trophiesField").innerHTML = "Current Trophies: " + playerInfo.trophies;
+                    document.getElementById("highestTrophiesField").innerHTML = "Highest Trophies: " + playerInfo.highestTrophies;
+                    document.getElementById("3vs3VictoriesField").innerHTML = "3v3 Victories: " + playerInfo['3vs3Victories'];
+                    document.getElementById("soloVictoriesField").innerHTML = "Solo Victories: " + playerInfo.soloVictories;
+                    document.getElementById("duoVictoriesField").innerHTML = "Duo Victories: " + playerInfo.duoVictories;
+                    document.getElementById("expLevelField").innerHTML = "Previous EXP Level: " + playerInfo.expLevel;
+                    document.getElementById("clubField").innerHTML = "Club: " + playerInfo.club ? "Club: " + playerInfo.club.name : "Player is not in a club";
+                })
+                .catch(function (error) {
+                    console.error('Error searching player tag:', error);
+                });
+            }, 3000);
         }
     </script>
 </head>
@@ -39,6 +59,7 @@
         <button type="button" class="btn btn-primary" onclick="search()" id="searchButton">Search</button>
     </div>
     <div id="resultsDiv">
+        <div id="loadingMessage"></div>
         <div id="resultsContainer">
             <div id="tagField"></div>
             <div id="nameField"></div>
