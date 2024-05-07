@@ -1,3 +1,15 @@
+@font-face {
+    font-family: 'Nougat';
+    src: url('/static/fonts/Nougat-ExtraBlack.ttf') format('truetype');
+}
+
+body {
+    background-image: url('/static/Images/brawlStarsBackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 #h1name {
     text-align: center;
 }
@@ -5,14 +17,22 @@
 #playerTag {
     padding: 10px;
     border-radius: 10px;
-    border: 2px solid blue;
-    width: 300px;
+    border: 2px solid grey;
+    width: 100%;
     text-align: center;
 }
 
 #inputDiv {
     display: flex;
     justify-content: center;
+}
+
+#inputContainer {
+    padding: 30px;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+    width: 40%;
 }
 
 #resultsDiv {
@@ -26,6 +46,31 @@
     flex-direction: column;
 }
 
+.statistic {
+    margin-bottom: 10px;
+}
+
+#mainHeader {
+    text-align: center;
+    font-family: "Nougat";
+    color: white;
+    margin-top: 10px;
+}
+
+#topRow {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
 #searchButton {
-    margin-left: 20px;
+    margin-right: -100px;
+    margin-top: 30px;
+    margin-bottom: -10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+#searchButtonDiv {
+    cursor: pointer;
 }

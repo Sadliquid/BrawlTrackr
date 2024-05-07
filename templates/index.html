@@ -20,9 +20,9 @@
             document.getElementById("clubField").innerHTML = "";
 
             inputPlayerTag = document.getElementById("playerTag").value;
-            document.getElementById("loadingMessage").innerHTML = "Conecting to server...";
+            document.getElementById("searchButton").textContent = "Conecting to server...";
             setTimeout(function(){
-                document.getElementById("loadingMessage").innerHTML = "Fetching your player info...";
+                document.getElementById("searchButton").textContent = "Fetching player info...";
             }, 1500);
             setTimeout(function(){
                 axios.post('/searchPlayerTag', {
@@ -30,11 +30,20 @@
                 })
                 .then(function (response) {
                     if (response.data == "Player not found"){
-                        document.getElementById("loadingMessage").innerHTML = "Player not found!";
+                        document.getElementById("searchButton").textContent = "Player not found!";
+                        setTimeout(function(){
+                            document.getElementById("searchButton").textContent = "Search";
+                        }, 1500);
                         return;
                     }
+                    document.getElementById("searchButton").textContent = "Search";
                     var playerInfo = response.data;
-                    document.getElementById("loadingMessage").innerHTML = "";
+                    document.getElementById("resultsContainer").style.backgroundColor = "whitesmoke";
+                    document.getElementById("resultsContainer").style.borderRadius = "10px";
+                    document.getElementById("resultsContainer").style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+                    document.getElementById("resultsContainer").style.padding = "30px";
+                    document.getElementById("resultsContainer").style.width = "40%";
+
                     document.getElementById("tagField").innerHTML = "Player Tag: " + playerInfo.tag;
                     document.getElementById("nameField").innerHTML = "Player Name: " + playerInfo.name;
                     document.getElementById("trophiesField").innerHTML = "Current Trophies: " + playerInfo.trophies;
@@ -53,23 +62,28 @@
     </script>
 </head>
 <body>
-    <h1 id="h1name">Brawl Stars Stats Tracker</h1>
+    <h1 id="mainHeader">BrawlTrackr</h1>
     <div id="inputDiv">
-        <input type="text" id="playerTag" placeholder="Enter Player Tag (E.g 5FVWQY7T3)">
-        <button type="button" class="btn btn-primary" onclick="search()" id="searchButton">Search</button>
+        <div id="inputContainer">
+            <div id="topRow">
+                <input type="text" id="playerTag" placeholder="Enter Player Tag (E.g 5FVWQY7T3)">
+                <div id="searchButtonDiv">
+                    <button type="button" class="btn btn-warning" onclick="search()" id="searchButton">Search</button><br>
+                </div>
+            </div>
+        </div>
     </div>
     <div id="resultsDiv">
-        <div id="loadingMessage"></div>
         <div id="resultsContainer">
-            <div id="tagField"></div>
-            <div id="nameField"></div>
-            <div id="trophiesField"></div>
-            <div id="highestTrophiesField"></div>
-            <div id="3vs3VictoriesField"></div>
-            <div id="soloVictoriesField"></div>
-            <div id="duoVictoriesField"></div>
-            <div id="expLevelField"></div>
-            <div id="clubField"></div>
+            <div class="statistic" id="tagField"></div>
+            <div class="statistic" id="nameField"></div>
+            <div class="statistic" id="trophiesField"></div>
+            <div class="statistic" id="highestTrophiesField"></div>
+            <div class="statistic" id="3vs3VictoriesField"></div>
+            <div class="statistic" id="soloVictoriesField"></div>
+            <div class="statistic" id="duoVictoriesField"></div>
+            <div class="statistic" id="expLevelField"></div>
+            <div class="statistic" id="clubField"></div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
