@@ -1,12 +1,15 @@
-import os, requests
-from dotenv import load_dotenv
+import os
+import requests
 from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-load_dotenv()
-
 API_KEY = os.environ.get('API_KEY')
+WEBSHARE_USER = os.environ.get('WEBSHARE_USER')
+WEBSHARE_PASS = os.environ.get('WEBSHARE_PASS')
+
+def get_proxy():
+    return f"http://{WEBSHARE_USER}:{WEBSHARE_PASS}@38.154.227.167:5868"
 
 @app.route('/')
 def index():
@@ -25,7 +28,20 @@ def search():
         'Authorization': f'Bearer {API_KEY}'
     }
 
-    response = requests.get(url, headers=headers)
+    proxy = get_proxy()
+
+    if not proxy:
+        return "Failed to retrieve proxy"
+
+    proxies = {
+        'http': proxy,
+        'https': proxy
+    }
+
+    response = requests.get(url, headers=headers, proxies=proxies)
+
+    print(f"Response: {response.json()}")
+    print(f"Response status code: {response.status_code}")
 
     if response.status_code == 200:
         player_info = response.json()
@@ -35,3 +51,4 @@ def search():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
