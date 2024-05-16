@@ -38,16 +38,20 @@ def search():
         'https': proxy
     }
 
-    response = requests.get(url, headers=headers, proxies=proxies)
+    try:
+        response = requests.get(url, headers=headers, proxies=proxies)
 
-    print(f"Response: {response.json()}")
-    print(f"Response status code: {response.status_code}")
+        print(f"Response: {response.json()}")
+        print(f"Response status code: {response.status_code}")
 
-    if response.status_code == 200:
-        player_info = response.json()
-        return jsonify(player_info)
-    else:
-        return "Player not found"
+        if response.status_code == 200:
+            player_info = response.json()
+            return jsonify(player_info)
+        else:
+            return "Player not found"
+    except Exception as e:
+        print(f"Error: {e}")
+        return "Failed to communicate with API. Please try again later."
 
 if __name__ == '__main__':
     app.run(debug=True)
